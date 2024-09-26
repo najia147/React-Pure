@@ -6,6 +6,44 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hello React!</title>
+  <style>
+    /* Reset some basic styles */
+    body,
+    h1,
+    p,
+    header {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Styling for the body */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #f3ec78, #af4261);
+      font-family: Arial, sans-serif;
+    }
+
+    /* Styling for the header */
+    header {
+      background-color: rgba(255, 255, 255, 0.8);
+      color: #333;
+      padding: 20px 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      font-size: 2rem;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Add a hover effect to the header */
+    header:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+    }
+  </style>
 </head>
 
 <body>
@@ -16,13 +54,14 @@
 
   <script>
     function App() {
-      // const time = new Date().toLocaleTimeString();
       const [time, setTime] = React.useState(new Date().toLocaleTimeString());
 
-      React.useEffect(function () {
-        setInterval(function () {
+      React.useEffect(() => {
+        const intervalId = setInterval(() => {
           setTime(new Date().toLocaleTimeString());
         }, 1000);
+
+        return () => clearInterval(intervalId); // Cleanup interval on component unmount
       }, []);
 
       return React.createElement("header", null, `Hello React! It's ${time}`);
